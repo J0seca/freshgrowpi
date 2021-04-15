@@ -299,7 +299,7 @@ def configura_correo():
     ncorreo_datos = input("\nIngrese nuevo correo: ")
 
     #Verificando correo
-    if (ncorreo_datos.find("@") > 4 and ncorreo_datos.find(".") > 5):
+    if (ncorreo_datos.find("@") > 4 and ncorreo_datos.find(".") > 0):
        print("Registrando nuevo correo:", ncorreo_datos)
        time.sleep(1)
 
