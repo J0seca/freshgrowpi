@@ -4,10 +4,6 @@ from scripts.config.variables import vent_temp_max, vent_hum_max, ext_temp_max, 
 import os
 import time
 
-#variables globales
-global vent_temp_max, vent_hum_max, ext_temp_max, ext_hum_max, luz_hora_encendido, luz_hora_apagado, correo_datos, frecuencia_correos
-global nvent_temp_max, vent_hum_max, next_temp_max, ext_hum_max, nluz_hora_encendido, nluz_hora_apagado, ncorreo_datos, nfrecuencia_correos
-
 #definimos nuevas
 nvent_temp_max = vent_temp_max
 nvent_hum_max = vent_hum_max
@@ -67,7 +63,7 @@ def inicio():
     elif main_option == 4:
         configura_correo()
     elif main_option == 5:
-        print("guarda_configuracion()")
+        guarda_configuracion()
     elif main_option == 6:
         clr()
         print("""
@@ -191,7 +187,9 @@ def configura_extractor():
     print("-"*25)
     print("Humedad de encendido actual:", ext_hum_max, "%")
     print("-"*25)
+
     global next_hum_max
+
     next_hum_max = input("Ingrese nueva humedad de encendido: ")
     try:
         next_hum_max = int(next_hum_max)
@@ -200,11 +198,13 @@ def configura_extractor():
             time.sleep(2)
             input("\nEnter para continuar...")
             inicio()
+
         else:
             print("-"*25)
             print("Datos fuera de Rango. Rango permitido (1% a 99%)")
             time.sleep(3)
             configura_extractor()
+
     except ValueError:
         print("-"*25)
         print("Error ingresando datos.")
@@ -281,7 +281,159 @@ def configura_fotoperiodo():
     return nluz_hora_encendido, nluz_hora_apagado
 
 def configura_correo():
-    print("Nueva hora de encendido:", nluz_hora_encendido, "\nNueva hora apagado:", nluz_hora_apagado)
+    clr()
+    print("""
+     __ ___ _ _ _ _ ___ ___
+    / _/ _ \ '_| '_/ -_) _ \\
+    \__\___/_| |_| \___\___/
+
+    """)
+
+    global ncorreo_datos, nfrecuencia_correos
+
+    print("-"*25)
+    print("Dirección de correo registrada:", correo_datos)
+    print("Frecuencia actual de correo diario (en horas):", frecuencia_correos)
+    print("-"*25)
+
+    ncorreo_datos = input("\nIngrese nuevo correo: ")
+
+    #Verificando correo
+    if (ncorreo_datos.find("@") > 4 and ncorreo_datos.find(".") > 5):
+       print("Registrando nuevo correo:", ncorreo_datos)
+       time.sleep(1)
+
+    else:
+        print("Error en formato de correo!")
+        time.sleep(2)
+        configura_correo()
+
+    #modificando frecuencia
+    print("-"*25)
+    nfrecuencia_correos = input("\nIngrese nueva frecuencia en horas (1 - 24): ")
+
+    #verificando si dato es correcto
+    try:
+        nfrecuencia_correos = int(nfrecuencia_correos)
+        if(1 <= nfrecuencia_correos <= 24):
+            print("Nueva frecuencia registrada:", nfrecuencia_correos)
+            input("Enter para continuar...")
+            inicio()
+        else:
+            print("\nError en frecuencia ingresada. Debe ser entre 1 y 24 hrs.")
+            input("Enter para reintentar...")
+            configura_correo()
+
+    except ValueError:
+            print("\nError en frecuencia ingresada. Debe ser entre 1 y 24 hrs.")
+            input("Enter para reintentar...")
+            configura_correo()
+
+    return ncorreo_datos, nfrecuencia_correos
+
+def rellena(r):
+    relleno = 30-len(str(r))
+    r = str(r) + " "*relleno
+    return r
+
+def guardando_datos():
+    var_file = open("./scripts/config/variables.py","w")
+    line = "vent_temp_max = " + str(nvent_temp_max) + "\n"
+    var_file.write(line)
+    line = "vent_hum_max = " + str(nvent_hum_max) + "\n"
+    var_file.write(line)
+    line = "ext_temp_max = " + str(next_temp_max) + "\n"
+    var_file.write(line)
+    line = "ext_hum_max = " + str(next_hum_max) + "\n"
+    var_file.write(line)
+    line = "luz_hora_encendido = " + "'" + nluz_hora_encendido + "'" + "\n"
+    var_file.write(line)
+    line = "luz_hora_apagado = " + "'" + nluz_hora_apagado + "'" + "\n"
+    var_file.write(line)
+    line = "correo_datos = " + "'" + ncorreo_datos + "'" + "\n"
+    var_file.write(line)
+    line = "frecuencia_correos = " + str(nfrecuencia_correos)
+    var_file.write(line)
+    var_file.close()
+
+
+def guarda_configuracion():
+    clr()
+    print("""
+      ___                  _              _
+     / __|_  _ __ _ _ _ __| |__ _ _ _  __| |___
+    | (_ | || / _` | '_/ _` / _` | ' \/ _` / _ \\
+     \___|\_,_\__,_|_| \__,_\__,_|_||_\__,_\___/
+
+    """)
+
+    print("Estos son los cambios realizados:\n")
+
+    global correo_datos
+
+    print(rellena("Datos Anteriores") + "| Datos nuevos")
+    print(30*"-" + "+" + 30*"-")
+    cambios = 0
+
+    #revisando cambios en los datos:
+    if(vent_temp_max != nvent_temp_max):
+        print("\nTemperatura máxima de ventilador")
+        print(rellena(vent_temp_max) + "| " + str(nvent_temp_max))
+        cambios = 1
+
+    if(vent_hum_max != nvent_hum_max):
+        print("\nHumedad máxima de ventilador")
+        print(rellena(vent_hum_max) + "| " + str(nvent_hum_max))
+        cambios = 1
+
+    if(ext_temp_max != next_temp_max):
+        print("\nTemperatura máxima de extractor")
+        print(rellena(ext_temp_max) + "| " + str(next_temp_max))
+        cambios = 1
+
+    if(ext_hum_max != next_hum_max):
+        print("\nHumedad máxima de extractor")
+        print(rellena(ext_hum_max) + "| " + str(next_hum_max))
+        cambios = 1
+
+    if(luz_hora_encendido != nluz_hora_encendido):
+        print("\nHora encendido de luces")
+        print(rellena(luz_hora_encendido) + "| " + str(nluz_hora_encendido))
+        cambios = 1
+
+    if(luz_hora_apagado != nluz_hora_apagado):
+        print("\nHora apagado de luces")
+        print(rellena(luz_hora_apagado) + "| " + str(nluz_hora_apagado))
+        cambios = 1
+
+    if(correo_datos != ncorreo_datos):
+        print("\nCorreo para envío de datos")
+        print(rellena(correo_datos) + "| " + str(ncorreo_datos))
+        cambios = 1
+
+    if(frecuencia_correos != nfrecuencia_correos):
+        print("\nFrecuencia de envío de datos")
+        print(rellena(frecuencia_correos) + "| " + str(nfrecuencia_correos))
+        cambios = 1
+
+    if(cambios == 0):
+        input("No se encontraron diferencias. Enter para continuar...")
+        #time.sleep(3)
+        inicio()
+
+    guarda = input("\nEscriba Si para guardar: ")
+    if guarda.upper() == "SI":
+        print("\nGuardando nuevos datos de configuración.")
+        guardando_datos()
+        print("\nDatos guardados!. Reiniciando servicios")
+        input("Nueva configuración aplicada. Enter para continuar...")
+        inicio()
+
+    else:
+        input("No se han guardado los datos. Enter para continuar...")
+        #time.sleep(3)
+        inicio()
+
 
 
 def main():
