@@ -2,6 +2,8 @@
 #-*- coding: utf-8 -*-
 import os
 import time
+import datetime
+
 import RPi.GPIO as GPIO
 from config.variables import luz_hora_encendido, luz_hora_apagado
 
@@ -22,28 +24,45 @@ def comienza_noche():
 print("Encendiendo a las: ", luz_hora_encendido)
 print("Apagando a las: ", luz_hora_apagado)
 
+hora_encendido = luz_hora_encendido
+hora_apagado = luz_hora_apagado
+hora_encendido = datetime.datetime.strptime(hora_encendido, '%H:%M')
+hora_apagado = datetime.datetime.strptime(hora_apagado, '%H:%M')
+
+#haciendo rango de horas de encendido en minutos segun rango:
+rango_encendido = []
+hora = hora_encendido
+while hora != hora_apagado:
+    #agregamos hora a lista de rango:
+    rango_encendido.append(hora)
+    print(hora)
+
+    #sumamos un minuto:
+    hora = hora + datetime.timedelta(minutes=1)
+
+    #aca buscamos el limite del otro día, ya que el horario puede pasar las 00:00
+    #por lo que se reinicia a las 00:00 del día 1
+    limite = "00:00"
+    limite = datetime.datetime.strptime(limite, '%H:%M') +datetime.timedelta(days=1)
+
+    if hora == limite:
+        hora = "00:00" #reseteamos a día 1
+        hora = datetime.datetime.strptime(hora, '%H:%M') #aplicamos formato
+    #time.sleep(0.2)
+
+#verificando luces prendidas
 while True:
-
-    hora_actual = int(time.strftime("%H"))
-    minuto_actual = int(time.strftime("%M"))
-    hora_encendido = int(luz_hora_encendido[0:2])
-    minuto_encendido = int(luz_hora_encendido[3:5])
-    hora_apagado = int(luz_hora_apagado[0:2])
-    minuto_apagado = int(luz_hora_apagado[3:5])
-
-    print("Hora actual:", hora_actual)
-    print("Minuto actual:", minuto_actual)
-    print("Hora encendido:", hora_encendido)
-    print("Minuto encendido:", minuto_encendido)
-    print("Hora apagado:", hora_apagado)
-    print("Minuto apagado:", minuto_apagado)
-
-    if (hora_actual == hora_encendido) and (minuto_actual == minuto_encendido) and (GPIO.input(21) == 0):
-        comienza_dia()
-
-    if (hora_actual == hora_apagado) and (minuto_actual == minuto_apagado) and (GPIO.input(21) == 1):
-        comienza_noche()
-
+    hora_consulta = datetime.datetime.now().strftime("%H:%M")
+    hora_consulta = datetime.datetime.strptime(hora_consulta, '%H:%M')
+    if hora_consulta in rango_encendido:
+        if (GPIO.input(21) == 0):
+            comienza_dia()
+        else:
+            print("Estado de luces correcto.")
     else:
-        print("Luces en estado correcto:", GPIO.input(21))
-    time.sleep(30)
+        if (GPIO.input(21) == 1):
+            comienza_noche()
+        else:
+            print("Estado de luces correcto.")
+
+    time.sleep(58)
