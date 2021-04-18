@@ -3,6 +3,14 @@
 import os
 import time
 import Adafruit_DHT
+import RPi.GPIO as GPIO
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(24,GPIO.OUT)
+GPIO.setup(25,GPIO.OUT)
+GPIO.setup(21,GPIO.OUT)
+
 sensor = Adafruit_DHT.DHT11
 pin = 4
 sleep = 6 #duerme en segundos 1800 para media hora
@@ -15,7 +23,7 @@ while True:
         hum = str(hum)[0:2]
         fecha = time.strftime("%d-%m-%y")
         hora = time.strftime("%H:%M")
-        log_data = fecha + ";" + hora + ";" + temp + ";" + hum
+        log_data = fecha + ";" + hora + ";" + temp + ";" + hum + ";" + str(GPIO.input(24)) + ";" + str(GPIO.input(25)) + ";" + str(GPIO.input(21))
         #print(log_data)
 
     except ValueError:
