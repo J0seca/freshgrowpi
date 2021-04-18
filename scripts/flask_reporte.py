@@ -77,4 +77,4 @@ def main():
     else:
         variables = procesa_datos(archivo_log)
         return variables
-print(main())
+main()
