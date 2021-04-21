@@ -1,0 +1,12 @@
+#!/bin/bash
+
+salida=$(ifconfig|grep broadcast)
+
+#separando salida:
+IFS=' ' read -ra datos_ip <<< "$salida"
+iplocal=${datos_ip[1]}
+puerto=8888
+
+export FLASK_APP=flaskgrowpi.py
+#python3 -m flask run --host=$iplocal --port=$puerto
+flask run --host=$iplocal --port=$puerto

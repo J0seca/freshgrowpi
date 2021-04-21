@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+{% block content %}
+<br><p class='title'>Temperatura Hoy:</p>
+
+<div class='flex'>
+<div>
+  <p class='subtitle'>Mínima:</p>
+  <p class='roundgreen'>{{temp_min}}°C</p>
+</div>
+<div>
+  <p class='subtitle'>Máxima:</p>
+  <p class='roundgreen'>{{temp_max}}°C</p>
+</div>
+<div>
+  <p class='subtitle'>Promedio:</p>
+  <p class='roundgreen'>{{temp_prom}}°C</p>
+</div>
+</div>
+
+<br><p class='title'>Humedad Hoy:</p>
+
+<div class='flex'>
+<div>
+  <p class='subtitle'>Mínima:</p>
+  <p class='roundgreen'>{{hum_min}}%</p>
+</div>
+<div>
+  <p class='subtitle'>Máxima:</p>
+  <p class='roundgreen'>{{hum_max}}%</p>
+</div>
+<div>
+  <p class='subtitle'>Promedio:</p>
+  <p class='roundgreen'>{{hum_prom}}%</p>
+</div>
+</div>
+
+<div class='flex'>
+<div class='lila'>
+<p class='subtitle'>Ventilador activo un {{prop_vent}}% del tiempo hoy.</p>
+</div>
+<div class='lila'>
+<p class='subtitle'>Extractor activo un {{prop_ext}}% del tiempo hoy.</p>
+</div>
+</div>
+</div>
+{% endblock %}

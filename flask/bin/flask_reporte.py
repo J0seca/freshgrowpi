@@ -9,7 +9,7 @@ import numpy as np
 def procesa_datos(archivo_log):
 
     df = pd.read_csv(archivo_log, sep= ";")
-    df.columns = ['Fecha','Hora','Temperatura','Humedad','Ventilador','Extractor','Luz']
+    df.columns= ['Fecha','Hora','Temperatura','Humedad','Ventilador','Extractor','Luz']
 
     #guardamos variable fecha
     fecha = df['Fecha'][0]
@@ -27,19 +27,37 @@ def procesa_datos(archivo_log):
     df.loc[df['Luz'] == 1, 'Luz'] = 'On'
     df.loc[df['Luz'] == 0, 'Luz'] = 'Off'
 
-    return df
+    temp_min = np.amin(df['Temperatura'])
+    temp_max = np.amax(df['Temperatura'])
+    temp_media = round(np.mean(df['Temperatura']), 1)
+
+    hum_min = np.amin(df['Humedad'])
+    hum_max = np.amax(df['Humedad'])
+    hum_media = round(np.mean(df['Humedad']), 1)
+
+    prop_vent = round( (len(df.loc[ df['Ventilador'] == "On"]) / len(df) * 100) , 1)
+    prop_ext = round( (len(df.loc[ df['Extractor'] == "On"]) / len(df) * 100) , 1)
+    return temp_min, temp_max, temp_media, hum_min, hum_max, hum_media, prop_vent, prop_ext
 
 
-def main():
+
+def reporte():
     archivo_log = "../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
 
     if os.path.isfile(archivo_log) == False:
         #print("Error abriendo archivo LOG")
-        df = ['Fecha','Hora','Temperatura','Humedad','Ventilador','Extractor','Luz']
-        return df
+        temp_max = "0"
+        temp_min = "0"
+        temp_media = "0"
+        hum_max = "0"
+        hum_min = "0"
+        hum_media = "0"
+        prop_vent = "0"
+        prop_ext = "0"
+
+        return temp_min, temp_max, temp_media, hum_min, hum_max, hum_media, prop_vent, prop_ext
 
     else:
         variables = procesa_datos(archivo_log)
         return variables
-
-main()
+reporte()
