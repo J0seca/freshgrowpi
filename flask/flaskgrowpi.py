@@ -48,5 +48,23 @@ estilo_tabla="""
 def log():
     fecha = time.strftime("%d-%m-%y")
     datos_log = flask_log()
-    datos = estilo_tabla + datos_log.to_html(index=False).replace("dataframe", "tablalog")
+    try:
+        datos = estilo_tabla + datos_log.to_html(index=False).replace("dataframe", "tablalog")
+    except:
+        datos = estilo_tabla + """
+<table border="1" class="tablalog">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Hora</th>
+      <th>Temp</th>
+      <th>Humedad</th>
+      <th>Vent</th>
+      <th>Ext</th>
+      <th>Luz</th>
+    </tr>
+  </thead>"""
     return render_template('log.html', fecha=fecha, datos_log=datos)
+
+@app.route('/control')
+def control():
+    return render_template('control.html')

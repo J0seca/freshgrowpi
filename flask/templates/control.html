@@ -1,0 +1,91 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+.button_on {
+    background-color: #910088;
+    border: none;
+    color: #0DCE15;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 2px 2px 2px #8200a5;
+    display: inline-block;
+    font-size: 1.2em;
+    font-family: "Segoe UI";
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 50%;
+}
+.button_on:hover {
+    background-color: #0DCE15;
+    color: #0DCE15;
+}
+.button_off {
+    background-color: #0DCE15;
+    border: none;
+    color: #910088;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 2px 2px 2px #0DCE15;
+    display: inline-block;
+    font-size: 1.2em;
+    font-family: "Segoe UI";
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 50%;
+}
+.button_off:hover {
+    background-color: #910088;
+    color: #910088;
+}
+
+.button_actualiza {
+    background-color: #910088;
+    border: none;
+    color: #0DCE15;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 2px 2px 2px #8200a5;
+    display: inline-block;
+    font-size: 1.2em;
+    font-family: "Segoe UI";
+    margin: 4px 2px;
+    cursor: pointer;
+    width: auto;
+}
+
+div.info {
+  display: flex;
+  padding: 5px;
+  line-height : auto;
+  align-items: center;
+  align-content: center;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  border: 1px solid #2d0030;
+}
+
+</style>
+<p></p><p class='subtitle'>Datos de ambiente a las: 0:43 hrs</p>
+
+<div style="border: 1px solid #2d0030; float:left;border-radius: 3px;">
+<p class='subtitle'>Temperatura:</p><p class='title'>23 °C</p>
+<p class='subtitle'>Humedad:</p><p class='title'>60 %</p>
+</div>
+
+
+<div class='info'>
+<p class="subtitle">Estado del ventilador:</p><button class='button_on'>ON</button>
+</div>
+<div class='info'>
+<p class="subtitle">Estado del Extractor:</p><button class='button_off'>OFF</button>
+</div>
+<div class='info'>
+<p class="subtitle">Estado de las luces:</p><button class='button_on'>ON</button>
+</div>
+<div style="float: right;>
+<a href="javascript:location.reload()" class="button_actualiza">Actualizar info</a>
+</div>
+{% endblock %}
