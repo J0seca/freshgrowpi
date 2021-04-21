@@ -7,21 +7,17 @@ import numpy as np
 
 
 def procesa_datos(archivo_log):
-
-    df = pd.read_csv(archivo_log, sep= ";")
+    df = pd.read_csv(archivo_log, sep= ";", header=None)
     df.columns = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz']
 
-    #guardamos variable fecha
-    fecha = df['Fecha'][0]
     #eliminamos columnas
     del(df['Fecha'])
 
     #cambiamos tipo de variables
     df = df.astype({"Vent":'object', "Ext":'object', "Luz":'object',"Humedad":'int64'})
-    df = df.astype({"Temp":'object',"Humedad":'object'})
 
-    df['Temp'] = df['Temp'].astype(str) + " °C"
-    df['Humedad'] = df['Humedad'].astype(str) + " %"
+    df['Temp'] = df['Temp'].astype(str) + "  °C"
+    df['Humedad'] = df['Humedad'].astype(str) + "  %"
 
 
     #cambiando 1 y 0 por On y Off
@@ -39,7 +35,7 @@ def flask_log():
     archivo_log = "../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
     if os.path.isfile(archivo_log) == False:
         #print("Error abriendo archivo LOG")
-        df = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz1']
+        df = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz_Err']
         return df
 
     else:
@@ -47,3 +43,11 @@ def flask_log():
         return variables
 
 flask_log()
+
+def test():
+    archivo_log = "../../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
+    arch = open(archivo_log,"r")
+    print(archivo_log)
+    print(arch)
+    print(procesa_datos(archivo_log))
+#test() #para pruebas

@@ -8,12 +8,10 @@ import numpy as np
 
 def procesa_datos(archivo_log):
 
-    df = pd.read_csv(archivo_log, sep= ";")
+    df = pd.read_csv(archivo_log, sep= ";", header=None)
     df.columns= ['Fecha','Hora','Temperatura','Humedad','Ventilador','Extractor','Luz']
 
     #guardamos variable fecha
-    fecha = df['Fecha'][0]
-    #eliminamos columnas
     del(df['Fecha'])
 
     #cambiamos tipo de variables
@@ -31,12 +29,17 @@ def procesa_datos(archivo_log):
     temp_max = np.amax(df['Temperatura'])
     temp_media = round(np.mean(df['Temperatura']), 1)
 
-    hum_min = np.amin(df['Humedad'])
-    hum_max = np.amax(df['Humedad'])
+    hum_min = str(np.amin(df['Humedad']))
+    hum_max = str(np.amax(df['Humedad']))
     hum_media = round(np.mean(df['Humedad']), 1)
 
-    prop_vent = round( (len(df.loc[ df['Ventilador'] == "On"]) / len(df) * 100) , 1)
-    prop_ext = round( (len(df.loc[ df['Extractor'] == "On"]) / len(df) * 100) , 1)
+    if len(df) > 1:
+        prop_vent = int(round( (len(df.loc[ df['Ventilador'] == "On"]) / len(df) * 100) , 1))
+        prop_ext = int(round( (len(df.loc[ df['Extractor'] == "On"]) / len(df) * 100) , 1))
+    else:
+        prop_vent = "-"
+        prop_ext = "-"
+
     return temp_min, temp_max, temp_media, hum_min, hum_max, hum_media, prop_vent, prop_ext
 
 

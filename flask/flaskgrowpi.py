@@ -34,7 +34,7 @@ estilo_tabla="""
       width: 100%;
       }
       th {
-      color: #68D21A;       
+      color: #68D21A;
       background-color: #64006C;
       }
       td {
