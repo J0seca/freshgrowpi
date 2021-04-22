@@ -13,8 +13,8 @@ GPIO.setup(21,GPIO.OUT)
 
 sensor = Adafruit_DHT.DHT11
 pin = 4
-sleep = 6 #duerme en segundos 1800 para media hora
-logfile = "../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
+sleep = 1800 #duerme en segundos 1800 para media hora
+logfile = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
 
 while True:
     try:

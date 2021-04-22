@@ -1,0 +1,11 @@
+[Unit]
+Description=servicio control de ventilador
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+User=pi
+ExecStart=/home/pi/freshgrowpi/scripts/vent_control.py
+
+[Install]
+WantedBy=multi-user.target

@@ -78,9 +78,9 @@ div.info {
 <div class='info'>
 {% if estado_vent=="on" %}
 <p class="subtitle">Estado del ventilador:</p>
+
 <input type="submit" name="vent_off" value="vent_off">
 <button class='button_on'>ON</button>
-</input>
 
 {% elif estado_vent=="off" %}
 <p class="subtitle">Estado del ventilador:</p><button class='button_off'>OFF</button>

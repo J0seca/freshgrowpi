@@ -55,6 +55,6 @@ def main():
                 apaga_ventilador()
 
         print("Descansando un minuto u.u") 
-        time.sleep(15)
+        time.sleep(60)
 
 main()

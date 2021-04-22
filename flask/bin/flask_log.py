@@ -32,7 +32,7 @@ def procesa_datos(archivo_log):
 
 
 def flask_log():
-    archivo_log = "../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
+    archivo_log = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
     if os.path.isfile(archivo_log) == False:
         #print("Error abriendo archivo LOG")
         df = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz_Err']
@@ -45,7 +45,7 @@ def flask_log():
 flask_log()
 
 def test():
-    archivo_log = "../../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
+    archivo_log = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
     arch = open(archivo_log,"r")
     print(archivo_log)
     print(arch)

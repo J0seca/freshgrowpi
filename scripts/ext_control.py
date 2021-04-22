@@ -39,20 +39,20 @@ def main():
             print("Temperatura muy alta. Prendiendo extractores.")
             prende_extractor()
             time.sleep(6) #extractores encendidos por 10 min.
-            print("Apagando ventiladores.")
+            print("Apagando extractores.")
             apaga_extractor()
 
         elif (int(hum) >= hum_max) and (int(GPIO.input(25)) == 0):
             print("Humedad muy alta. Prendiendo extractores.")
-            prende_ventilador()
-            time.sleep(6) #ventiladores encendidos por 10 min.
-            print("Apagando ventiladores.")
-            apaga_ventilador()
+            prende_extractor()
+            time.sleep(6) #extractores encendidos por 10 min.
+            print("Apagando extractores.")
+            apaga_extractor()
 
         else:
             if GPIO.input(25) == 1:
-                print("Parámetros correctos. Apagando ventilador.")
-                apaga_ventilador()
+                print("Parámetros correctos. Apagando extractor.")
+                apaga_extractor()
 
         print("Descansando un minuto u.u") 
         time.sleep(60)

@@ -45,7 +45,7 @@ def procesa_datos(archivo_log):
 
 
 def reporte():
-    archivo_log = "../log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
+    archivo_log = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
 
     if os.path.isfile(archivo_log) == False:
         #print("Error abriendo archivo LOG")

@@ -1,0 +1,11 @@
+[Unit]
+Description=servicio control de extractor
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+User=pi
+ExecStart=/home/pi/freshgrowpi/scripts/ext_control.py
+
+[Install]
+WantedBy=multi-user.target

@@ -1,7 +1,10 @@
+#!/usr/bin/python3
 from flask import Flask as F
 from flask import render_template
 from bin.flask_log import *
 from bin.flask_reporte import *
+from bin.consulta_estado import *
+from bin.flask_control import *
 
 app = F(__name__)
 
@@ -67,4 +70,19 @@ def log():
 
 @app.route('/control')
 def control():
-    return render_template('control.html')
+    datos_actualizados = consulta()
+
+    #if 'vent_on' in request.form:
+    #    prende_ventilador()
+    #elif 'vent_off' in request.form:
+    #    apaga_ventilador()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+
+if __name__ == '__main__':
+    app.run(host='192.168.0.13', port=8888)
