@@ -27,11 +27,11 @@ def procesa_datos(archivo_log):
 
     temp_min = np.amin(df['Temperatura'])
     temp_max = np.amax(df['Temperatura'])
-    temp_media = round(np.mean(df['Temperatura']), 1)
+    temp_media = int(round(np.mean(df['Temperatura']), 1))
 
-    hum_min = str(np.amin(df['Humedad']))
-    hum_max = str(np.amax(df['Humedad']))
-    hum_media = round(np.mean(df['Humedad']), 1)
+    hum_min = int(np.amin(df['Humedad']))
+    hum_max = int(np.amax(df['Humedad']))
+    hum_media = int(round(np.mean(df['Humedad']), 1))
 
     if len(df) > 1:
         prop_vent = int(round( (len(df.loc[ df['Ventilador'] == "On"]) / len(df) * 100) , 1))

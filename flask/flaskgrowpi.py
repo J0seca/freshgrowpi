@@ -16,9 +16,9 @@ def flaskgrowpi():
 def reporte_web():
     datos_reporte = reporte()
     return render_template('reporte.html',
-                                temp_min=datos_reporte[0], 
+                                temp_min=datos_reporte[0],
                                 temp_max=datos_reporte[1],
-                                temp_prom=datos_reporte[2], 
+                                temp_prom=datos_reporte[2],
                                 hum_min=datos_reporte[3],
                                 hum_max=datos_reporte[4],
                                 hum_prom=datos_reporte[5],
@@ -43,6 +43,10 @@ estilo_tabla="""
       td {
       color: #64006C;
       }
+      td.on {
+      color:#68D21A;
+      background-color: #64006C;
+      }
 }
     </style>
 """
@@ -52,7 +56,9 @@ def log():
     fecha = time.strftime("%d-%m-%y")
     datos_log = flask_log()
     try:
+        #intenta modificar estilo, si no puede es por que dataframe está vacío
         datos = estilo_tabla + datos_log.to_html(index=False).replace("dataframe", "tablalog")
+        datos = datos.replace("<td>On</td>", "<td class='on'><b>On</b></td>")
     except:
         datos = estilo_tabla + """
 <table border="1" class="tablalog">

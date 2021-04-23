@@ -8,16 +8,16 @@ import numpy as np
 
 def procesa_datos(archivo_log):
     df = pd.read_csv(archivo_log, sep= ";", header=None)
-    df.columns = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz']
+    df.columns = ['Fecha','Hora','Temp','Hum','Vent','Ext','Luz']
 
     #eliminamos columnas
     del(df['Fecha'])
 
     #cambiamos tipo de variables
-    df = df.astype({"Vent":'object', "Ext":'object', "Luz":'object',"Humedad":'int64'})
+    df = df.astype({"Vent":'object', "Ext":'object', "Luz":'object',"Hum":'int64'})
 
     df['Temp'] = df['Temp'].astype(str) + "  °C"
-    df['Humedad'] = df['Humedad'].astype(str) + "  %"
+    df['Hum'] = df['Hum'].astype(str) + "  %"
 
 
     #cambiando 1 y 0 por On y Off
@@ -35,7 +35,7 @@ def flask_log():
     archivo_log = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
     if os.path.isfile(archivo_log) == False:
         #print("Error abriendo archivo LOG")
-        df = ['Fecha','Hora','Temp','Humedad','Vent','Ext','Luz_Err']
+        df = ['Fecha','Hora','Temp','Hum','Vent','Ext','Luz_Err']
         return df
 
     else:
