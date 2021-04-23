@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block content %}
 <style>
-.button_on {
+.button_off {
     background-color: #910088;
     border: none;
     color: #0DCE15;
@@ -16,11 +16,11 @@
     cursor: pointer;
     width: 50%;
 }
-.button_on:hover {
+.button_off:hover {
     background-color: #0DCE15;
     color: #0DCE15;
 }
-.button_off {
+.button_on {
     background-color: #0DCE15;
     border: none;
     color: #910088;
@@ -35,7 +35,7 @@
     cursor: pointer;
     width: 50%;
 }
-.button_off:hover {
+.button_on:hover {
     background-color: #910088;
     color: #910088;
 }
@@ -78,38 +78,47 @@ div.info {
 <div class='info'>
 {% if estado_vent=="on" %}
 <p class="subtitle">Estado del ventilador:</p>
-<input type="submit" name="vent_off" value="vent_off">
-<button class='button_on'>ON</button>
-</input>
+<a class='button_on' href='/vent_off'>ON</a>
 
 {% elif estado_vent=="off" %}
-<p class="subtitle">Estado del ventilador:</p><button class='button_off'>OFF</button>
+<p class="subtitle">Estado del ventilador:</p>
+<a class='button_off' href='/vent_on'>OFF</a>
 
 {% else %}
-<p class="subtitle">Estado del ventilador:</p><button class='button_off'>error</button>
+<p class="subtitle">Estado del ventilador:</p>
+<button class='button_off'>error</button>
+
 {% endif %}
 </div>
 
 <div class='info'>
 {% if estado_ext=="on" %}
-<p class="subtitle">Estado del Extractor:</p><button class='button_on'>ON</button>
+<p class="subtitle">Estado del Extractor:</p>
+<a class='button_on' href='/ext_off'>ON</a>
+
 {% elif estado_ext=="off" %}
-<p class="subtitle">Estado del Extractor:</p><button class='button_off'>OFF</button>
+<p class="subtitle">Estado del Extractor:</p>
+<a class='button_off' href='/ext_on'>OFF</a>
+
 {% else %}
-<p class="subtitle">Estado del Extractor:</p><button class='button_off'>error</button>
+<p class="subtitle">Estado del Extractor:</p>
+<button class='button_off'>error</button>
 {% endif %}
 </div>
 
 <div class='info'>
 {% if estado_luces=="on" %}
-<p class="subtitle">Estado de las luces:</p><button class='button_on'>ON</button>
+<p class="subtitle">Estado de las luces:</p>
+<a class='button_on' href='/luces_off'>ON</a>
+
 {% elif estado_luces=="off" %}
-<p class="subtitle">Estado de las luces:</p><button class='button_off'>OFF</button>
+<p class="subtitle">Estado de las luces:</p>
+<a class='button_off' href='/luces_on'>OFF</a>
+
 {% else %}
-<p class="subtitle">Estado de las luces:</p><button class='button_off'>error</button>
+<p class="subtitle">Estado de las luces:</p>
+<button class='button_off'>error</button>
+
 {% endif %}
-</div>
-<div style="float: right;>
-<a href="javascript:location.reload()" class="button_actualiza">Actualizar info</a>
 </div>
 {% endblock %}

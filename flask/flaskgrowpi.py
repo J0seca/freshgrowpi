@@ -16,9 +16,9 @@ def flaskgrowpi():
 def reporte_web():
     datos_reporte = reporte()
     return render_template('reporte.html',
-                                temp_min=datos_reporte[0],
+                                temp_min=datos_reporte[0], 
                                 temp_max=datos_reporte[1],
-                                temp_prom=datos_reporte[2],
+                                temp_prom=datos_reporte[2], 
                                 hum_min=datos_reporte[3],
                                 hum_max=datos_reporte[4],
                                 hum_prom=datos_reporte[5],
@@ -72,10 +72,75 @@ def log():
 def control():
     datos_actualizados = consulta()
 
-    #if 'vent_on' in request.form:
-    #    prende_ventilador()
-    #elif 'vent_off' in request.form:
-    #    apaga_ventilador()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+
+
+
+@app.route('/vent_on')
+def vent_on():
+    prende_ventilador()
+    datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+@app.route('/vent_off')
+def vent_off():
+    apaga_ventilador()
+    datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+@app.route('/ext_on')
+def ext_on():
+    prende_extractor()
+    datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+@app.route('/ext_off')
+def ext_off():
+    apaga_extractor()
+    datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+@app.route('/luces_on')
+def luces_on():
+    prende_luces()
+    datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5])
+
+@app.route('/luces_off')
+def luces_off():
+    apaga_luces()
+    datos_actualizados = consulta()
     return render_template('control.html', estado_ext=datos_actualizados[0],
                                             estado_vent=datos_actualizados[1],
                                             estado_luces=datos_actualizados[2],
@@ -85,4 +150,4 @@ def control():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.13', port=8888)
+    app.run(host='192.168.0.13', port=8888, debug=True)

@@ -16,7 +16,7 @@ def prende_ventilador():
 def apaga_ventilador():
     GPIO.output(24, False)
 
-def prende_extactor():
+def prende_extractor():
     GPIO.output(25, True)
 
 def apaga_extractor():
