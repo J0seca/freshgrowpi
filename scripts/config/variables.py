@@ -1,5 +1,5 @@
-vent_temp_max = 23
-vent_hum_max = 65
+vent_temp_max = 17
+vent_hum_max = 40
 ext_temp_max = 23
 ext_hum_max = 65
 luz_hora_encendido = '08:00'

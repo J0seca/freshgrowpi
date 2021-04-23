@@ -357,6 +357,9 @@ def guardando_datos():
     var_file.close()
 
 
+def reinicia_servicios():
+    os.system('sudo systemctl restart ext_control.service  fotoperiodo.service  log.service  vent_control.service')
+
 def guarda_configuracion():
     clr()
     print("""
@@ -371,49 +374,49 @@ def guarda_configuracion():
 
     global correo_datos
 
-    print(rellena("Datos Anteriores") + "| Datos nuevos")
+    print(rellena("Datos Anteriores") + "-> Datos nuevos")
     print(30*"-" + "+" + 30*"-")
     cambios = 0
 
     #revisando cambios en los datos:
     if(vent_temp_max != nvent_temp_max):
         print("\nTemperatura máxima de ventilador")
-        print(rellena(vent_temp_max) + "| " + str(nvent_temp_max))
+        print(rellena(vent_temp_max) + "-> " + str(nvent_temp_max))
         cambios = 1
 
     if(vent_hum_max != nvent_hum_max):
         print("\nHumedad máxima de ventilador")
-        print(rellena(vent_hum_max) + "| " + str(nvent_hum_max))
+        print(rellena(vent_hum_max) + "-> " + str(nvent_hum_max))
         cambios = 1
 
     if(ext_temp_max != next_temp_max):
         print("\nTemperatura máxima de extractor")
-        print(rellena(ext_temp_max) + "| " + str(next_temp_max))
+        print(rellena(ext_temp_max) + "-> " + str(next_temp_max))
         cambios = 1
 
     if(ext_hum_max != next_hum_max):
         print("\nHumedad máxima de extractor")
-        print(rellena(ext_hum_max) + "| " + str(next_hum_max))
+        print(rellena(ext_hum_max) + "-> " + str(next_hum_max))
         cambios = 1
 
     if(luz_hora_encendido != nluz_hora_encendido):
         print("\nHora encendido de luces")
-        print(rellena(luz_hora_encendido) + "| " + str(nluz_hora_encendido))
+        print(rellena(luz_hora_encendido) + "-> " + str(nluz_hora_encendido))
         cambios = 1
 
     if(luz_hora_apagado != nluz_hora_apagado):
         print("\nHora apagado de luces")
-        print(rellena(luz_hora_apagado) + "| " + str(nluz_hora_apagado))
+        print(rellena(luz_hora_apagado) + "-> " + str(nluz_hora_apagado))
         cambios = 1
 
     if(correo_datos != ncorreo_datos):
         print("\nCorreo para envío de datos")
-        print(rellena(correo_datos) + "| " + str(ncorreo_datos))
+        print(rellena(correo_datos) + "-> " + str(ncorreo_datos))
         cambios = 1
 
     if(frecuencia_correos != nfrecuencia_correos):
         print("\nFrecuencia de envío de datos")
-        print(rellena(frecuencia_correos) + "| " + str(nfrecuencia_correos))
+        print(rellena(frecuencia_correos) + "-> " + str(nfrecuencia_correos))
         cambios = 1
 
     if(cambios == 0):
@@ -426,6 +429,7 @@ def guarda_configuracion():
         print("\nGuardando nuevos datos de configuración.")
         guardando_datos()
         print("\nDatos guardados!. Reiniciando servicios")
+        reinicia_servicios()
         input("Nueva configuración aplicada. Enter para continuar...")
         inicio()
 
