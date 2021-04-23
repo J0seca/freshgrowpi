@@ -13,7 +13,7 @@ horas_espera = int(frecuencia_correos) * 3600
 smtp_server= 'smtp.gmail.com'
 port = 587 #465
 smtp_user = 'freshgrowpi@gmail.com'
-smtp_pass = '1pw0rghs3rf#'
+smtp_pass = '************'
 
 html="""
 <style>h1.p{color: blue;}</style>
