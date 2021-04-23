@@ -71,7 +71,23 @@ def log():
 @app.route('/control')
 def control():
     datos_actualizados = consulta()
+    return render_template('control.html', estado_ext=datos_actualizados[0],
+                                            estado_vent=datos_actualizados[1],
+                                            estado_luces=datos_actualizados[2],
+                                            temp_actual=datos_actualizados[3],
+                                            hum_actual=datos_actualizados[4],
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
 
+@app.route('/vent_on')
+def vent_on():
+    prende_ventilador()
+    datos_actualizados = consulta()
     return render_template('control.html', estado_ext=datos_actualizados[0],
                                             estado_vent=datos_actualizados[1],
                                             estado_luces=datos_actualizados[2],
@@ -86,18 +102,6 @@ def control():
                                             luz_hora_apagado=datos_actualizados[12])
 
 
-
-@app.route('/vent_on')
-def vent_on():
-    prende_ventilador()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
-
 @app.route('/vent_off')
 def vent_off():
     apaga_ventilador()
@@ -107,7 +111,14 @@ def vent_off():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
+
 
 @app.route('/ext_on')
 def ext_on():
@@ -118,7 +129,14 @@ def ext_on():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
+
 
 @app.route('/ext_off')
 def ext_off():
@@ -129,7 +147,13 @@ def ext_off():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
 
 @app.route('/luces_on')
 def luces_on():
@@ -140,7 +164,14 @@ def luces_on():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
+
 
 @app.route('/luces_off')
 def luces_off():
@@ -151,7 +182,13 @@ def luces_off():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
 
 
 if __name__ == '__main__':
