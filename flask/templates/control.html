@@ -67,8 +67,17 @@ div.info {
   border: 1px solid #2d0030;
 }
 
+p.green_title {
+  text-shadow: 1px 1px 1px #CBFBBC;
+  color: #15BB00;
+  text-align: left;
+  font-size: 1em;
+  padding: 5px 5px;
+}
 </style>
-<p></p><p class='subtitle'>Datos de ambiente a las: {{ hora_actual }}</p>
+<p></p>
+
+<p class='green_title'>Datos de ambiente a las: {{ hora_actual }}</p>
 
 <div style="border: 1px solid #2d0030; float:left;border-radius: 3px;">
 <p class='subtitle'>Temperatura:</p><p class='title'>{{ temp_actual }} °C</p>
@@ -120,5 +129,16 @@ div.info {
 <button class='button_off'>error</button>
 
 {% endif %}
+</div>
+<p></p>
+
+
+<div style='float:left;'>
+<p class='subtitle'>Periodo día en fotoperiodo:</p>
+<p class='green_title'>{{ luz_hora_encendido }} - {{ luz_hora_apagado }} hrs.</p>
+<p class='subtitle'>Temp/Hum max ventilador:</p>
+<p class='green_title'>{{ vent_temp_max }} °C / {{ vent_hum_max }} %</p>
+<p class='subtitle'>Temp/Hum max extractor:</p>
+<p class='green_title'>{{ ext_temp_max }} °C / {{ ext_hum_max }} %</p>
 </div>
 {% endblock %}

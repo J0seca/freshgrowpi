@@ -60,7 +60,7 @@ def log():
     <tr style="text-align: right;">
       <th>Hora</th>
       <th>Temp</th>
-      <th>Humedad</th>
+      <th>Hum</th>
       <th>Vent</th>
       <th>Ext</th>
       <th>Luz</th>
@@ -77,8 +77,13 @@ def control():
                                             estado_luces=datos_actualizados[2],
                                             temp_actual=datos_actualizados[3],
                                             hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5])
-
+                                            hora_actual=datos_actualizados[5],
+                                            vent_temp_max=datos_actualizados[7],
+                                            vent_hum_max=datos_actualizados[8],
+                                            ext_temp_max=datos_actualizados[9],
+                                            ext_hum_max=datos_actualizados[10],
+                                            luz_hora_encendido=datos_actualizados[11],
+                                            luz_hora_apagado=datos_actualizados[12])
 
 
 

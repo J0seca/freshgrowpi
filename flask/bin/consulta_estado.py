@@ -3,6 +3,11 @@
 import RPi.GPIO as GPIO
 import time
 import Adafruit_DHT
+import sys
+#importando datos del archivo de variables
+#primero agregamos directorio a los directorios del sistema
+sys.path.append('/home/pi/freshgrowpi/scripts/config/')
+from variables import *
 
 sensor = Adafruit_DHT.DHT11
 pin = 4
@@ -48,7 +53,6 @@ def consulta():
         temp_actual = "Error"
         hum_actual = "Error"
         hora_actual = "Error"
-    return estado_ext, estado_vent, estado_luces, temp_actual, hum_actual, hora_actual
-
+    return estado_ext, estado_vent, estado_luces, temp_actual, hum_actual, hora_actual, correo_datos, vent_temp_max, vent_hum_max, ext_temp_max, ext_hum_max, luz_hora_encendido, luz_hora_apagado, correo_datos, frecuencia_correos
 
 #print(consulta())

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #-*- coding: utf-8 -*-
 #controla dispositivos desde flask
 import RPi.GPIO as GPIO
