@@ -35,17 +35,10 @@ def main():
         hum = str(hum)[0:1]
         print(temp, hum, temp_max, hum_max)
 
-        if (int(temp) >= temp_max) and (int(GPIO.input(24)) == 0):
-            print("Temperatura muy alta. Prendiendo ventiladores.")
+        if (int(temp) >= temp_max) or (int(hum) >= hum_max) and (int(GPIO.input(24)) == 0):
+            print("Temp/Hum muy alta. Prendiendo ventiladores.")
             prende_ventilador()
-            time.sleep(6) #ventiladores encendidos por 10 min.
-            print("Apagando ventiladores.")
-            apaga_ventilador()
-
-        elif (int(hum) >= hum_max) and (int(GPIO.input(24)) == 0):
-            print("Humedad muy alta. Prendiendo ventiladores.")
-            prende_ventilador()
-            time.sleep(6) #ventiladores encendidos por 10 min.
+            time.sleep(36000) #ventiladores encendidos por 10 min.
             print("Apagando ventiladores.")
             apaga_ventilador()
 
@@ -54,7 +47,7 @@ def main():
                 print("Parámetros correctos. Apagando ventilador.")
                 apaga_ventilador()
 
-        print("Descansando un minuto u.u") 
+        print("Descansando un minuto u.u")
         time.sleep(60)
 
 main()

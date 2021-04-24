@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from flask import Flask as F
-from flask import render_template
+from flask import render_template, redirect
 from bin.flask_log import *
 from bin.flask_reporte import *
 from bin.consulta_estado import *
@@ -10,7 +10,9 @@ app = F(__name__)
 
 @app.route('/')
 def flaskgrowpi():
-    return render_template('index.html')
+    #return redirect('/reporte')
+    return render_template('inicio.html')
+
 
 @app.route('/reporte')
 def reporte_web():
@@ -93,108 +95,37 @@ def control():
 @app.route('/vent_on')
 def vent_on():
     prende_ventilador()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
 
 
 @app.route('/vent_off')
 def vent_off():
     apaga_ventilador()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
 
 
 @app.route('/ext_on')
 def ext_on():
     prende_extractor()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
 
 
 @app.route('/ext_off')
 def ext_off():
     apaga_extractor()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
+
 
 @app.route('/luces_on')
 def luces_on():
     prende_luces()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
 
 
 @app.route('/luces_off')
 def luces_off():
     apaga_luces()
-    datos_actualizados = consulta()
-    return render_template('control.html', estado_ext=datos_actualizados[0],
-                                            estado_vent=datos_actualizados[1],
-                                            estado_luces=datos_actualizados[2],
-                                            temp_actual=datos_actualizados[3],
-                                            hum_actual=datos_actualizados[4],
-                                            hora_actual=datos_actualizados[5],
-                                            vent_temp_max=datos_actualizados[7],
-                                            vent_hum_max=datos_actualizados[8],
-                                            ext_temp_max=datos_actualizados[9],
-                                            ext_hum_max=datos_actualizados[10],
-                                            luz_hora_encendido=datos_actualizados[11],
-                                            luz_hora_apagado=datos_actualizados[12])
+    return redirect('/control')
 
 
 if __name__ == '__main__':

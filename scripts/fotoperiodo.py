@@ -29,13 +29,13 @@ hora_apagado = luz_hora_apagado
 hora_encendido = datetime.datetime.strptime(hora_encendido, '%H:%M')
 hora_apagado = datetime.datetime.strptime(hora_apagado, '%H:%M')
 
-#haciendo rango de horas de encendido en minutos segun rango:
+#haciendo rango de horas de día en minutos segun rango:
 rango_encendido = []
 hora = hora_encendido
 while hora != hora_apagado:
     #agregamos hora a lista de rango:
     rango_encendido.append(hora)
-    print(hora)
+    #print(hora)
 
     #sumamos un minuto:
     hora = hora + datetime.timedelta(minutes=1)
