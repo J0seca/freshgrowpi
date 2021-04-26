@@ -17,6 +17,7 @@ def procesa_datos(archivo_log):
     #cambiamos tipo de variables
     df = df.astype({"Ventilador":'object', "Extractor":'object', "Luz":'object'})
 
+
     #cambiando 1 y 0 por On y Off
     df.loc[df['Ventilador'] == 1, 'Ventilador'] = 'On'
     df.loc[df['Ventilador'] == 0, 'Ventilador'] = 'Off'
@@ -33,7 +34,7 @@ def procesa_datos(archivo_log):
     hum_max = int(np.amax(df['Humedad']))
     hum_media = int(round(np.mean(df['Humedad']), 1))
 
-    if len(df) > 1:
+    if len(df) > 2:
         prop_vent = int(round( (len(df.loc[ df['Ventilador'] == "On"]) / len(df) * 100) , 1))
         prop_ext = int(round( (len(df.loc[ df['Extractor'] == "On"]) / len(df) * 100) , 1))
     else:
@@ -63,4 +64,4 @@ def reporte():
     else:
         variables = procesa_datos(archivo_log)
         return variables
-reporte()
+#reporte()

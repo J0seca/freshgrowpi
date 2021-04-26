@@ -14,7 +14,6 @@ GPIO.setup(21,GPIO.OUT)
 sensor = Adafruit_DHT.DHT11
 pin = 4
 sleep = 1800 #duerme en segundos 1800 para media hora
-logfile = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
 
 while True:
     try:
@@ -23,16 +22,24 @@ while True:
         hum = str(hum)[0:2]
         fecha = time.strftime("%d-%m-%y")
         hora = time.strftime("%H:%M")
+
+        if hum == "No":
+            hum = "0"
+        if temp == "No":
+            temp = "0"
+
         log_data = fecha + ";" + hora + ";" + temp + ";" + hum + ";" + str(GPIO.input(24)) + ";" + str(GPIO.input(25)) + ";" + str(GPIO.input(21))
         #print(log_data)
 
     except ValueError:
-        temp = "error"
-        hum = "error"
+        temp = "0"
+        hum = "0"
         fecha = time.strftime("%d-%m-%y")
         hora = time.strftime("%H:%M")
         log_data = fecha + ";" + hora + ";" + temp + ";" + hum
 
+
+    logfile = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
     if os.path.isfile(logfile):
         print("Archivo encontrado: ", logfile, " Escribiendo datos.")
         _log = open(logfile, "r")

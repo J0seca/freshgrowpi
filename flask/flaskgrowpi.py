@@ -5,15 +5,17 @@ from bin.flask_log import *
 from bin.flask_reporte import *
 from bin.consulta_estado import *
 from bin.flask_control import *
+from bin.log_historico import *
 
 app = F(__name__)
 
+####INDEX
 @app.route('/')
 def flaskgrowpi():
     #return redirect('/reporte')
     return render_template('inicio.html')
 
-
+####PAGINA REPORTE
 @app.route('/reporte')
 def reporte_web():
     datos_reporte = reporte()
@@ -27,7 +29,7 @@ def reporte_web():
                                 prop_vent=datos_reporte[6],
                                 prop_ext=datos_reporte[7])
 
-estilo_tabla="""
+estilo_tabla = """
 <style type="text/css" media="screen">
     table.tablalog {
       font-family: "Trebuchet MS", Arial;
@@ -53,6 +55,7 @@ estilo_tabla="""
     </style>
 """
 
+####PAGINA LOG
 @app.route('/log')
 def log():
     fecha = time.strftime("%d-%m-%y")
@@ -75,6 +78,23 @@ def log():
     </tr>
   </thead>"""
     return render_template('log.html', fecha=fecha, datos_log=datos)
+
+###LOG HISTORICO
+@app.route('/lista_log')
+def listando_log():
+    lista = lista_log()
+    return render_template('lista_log.html', lista=lista)
+
+@app.route('/log_consulta/<fecha>', methods=['GET', 'POST'])
+def log_consulta(fecha):
+    datos = consulta_log(fecha)
+    datos = estilo_tabla + datos.to_html(index=False).replace("dataframe", "tablalog")
+    datos = datos.replace("<td>On</td>", "<td class='on'><b>On</b></td>")
+    return render_template('log.html', fecha=fecha, datos_log=datos)
+
+
+
+####PAGINA CONTROL
 
 @app.route('/control')
 def control():

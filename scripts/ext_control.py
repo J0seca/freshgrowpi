@@ -35,8 +35,15 @@ def main():
         hum = str(hum)[0:1]
         print(temp, hum, temp_max, hum_max)
 
-        if (int(temp) >= temp_max) or (int(hum) >= hum_max) and (int(GPIO.input(25)) == 0):
-            print("Temp/Hum muy alta. Prendiendo extractores.")
+        if (int(temp) >= temp_max) and (int(GPIO.input(25)) == 0):
+            print("Temp muy alta. Prendiendo extractores.")
+            prende_extractor()
+            time.sleep(36000) #extractores encendidos por 10 min.
+            print("Apagando extractores.")
+            apaga_extractor()
+
+        elif (int(hum) >= hum_max)and (int(GPIO.input(25)) == 0):
+            print("Hum muy alta. Prendiendo extractores.")
             prende_extractor()
             time.sleep(36000) #extractores encendidos por 10 min.
             print("Apagando extractores.")
@@ -46,6 +53,9 @@ def main():
             if GPIO.input(25) == 1:
                 print("Parámetros correctos. Apagando extractor.")
                 apaga_extractor()
+
+            else:
+                pass
 
         print("Descansando un minuto u.u")
         time.sleep(60)

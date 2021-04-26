@@ -1,0 +1,21 @@
+{% extends 'index.html'%}
+{% block content %}
+<style>
+li.green_title {
+  text-shadow: 1px 1px 1px #CBFBBC;
+  color: #15BB00;
+  text-align: left;
+  font-size: 2em;
+  padding: 5px 5px;
+  margin-left: 1.5em;
+}
+</style>
+<br>
+<div style="position: fixed;">
+<p class='title'>Fechas disponibles:</p>
+{% for fecha in lista %}
+<a href="log_consulta/{{ fecha }}"> <li class="green_title">{{ fecha }}</li></a>
+<br>
+{% endfor %}
+</div>
+{% endblock %}

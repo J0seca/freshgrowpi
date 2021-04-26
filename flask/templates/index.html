@@ -8,17 +8,17 @@
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <header>
+ <!-- Para dejar fija: style="position:fixed;" -->
 
 	<nav>
 		<ul>
-			<li><a href="reporte"><b>REPORTE</b></a></li>
-			<li><a href="log"><b>LOG DIARIO</b></a></li>
-			<li><a href="control"><b>SALA DE CONTROL</b></a></li>
+			<li><a href="/reporte"><b>REPORTE</b></a></li>
+			<li><a href="/log"><b>LOG DIARIO</b></a></li>
+			<li><a href="/control"><b>SALA DE CONTROL</b></a></li>
 		</ul>
 	</nav>
 
 </header>
 {% endblock %}
  <!-- termina barra de titulo -->
-
 <body>{% block content %}{% endblock %}</body>

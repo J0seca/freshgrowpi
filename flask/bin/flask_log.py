@@ -13,9 +13,6 @@ def procesa_datos(archivo_log):
     #eliminamos columnas
     del(df['Fecha'])
 
-    #cambiamos tipo de variables
-    df = df.astype({"Vent":'object', "Ext":'object', "Luz":'object',"Hum":'int64'})
-
     df['Temp'] = df['Temp'].astype(str) + "  °C"
     df['Hum'] = df['Hum'].astype(str) + "  %"
 
@@ -42,7 +39,6 @@ def flask_log():
         variables = procesa_datos(archivo_log)
         return variables
 
-flask_log()
 
 def test():
     archivo_log = "/home/pi/freshgrowpi/log/log_clima_" + time.strftime("%d-%m-%y") + ".csv"
@@ -50,4 +46,5 @@ def test():
     print(archivo_log)
     print(arch)
     print(procesa_datos(archivo_log))
-#test() #para pruebas
+
+test() #para pruebas

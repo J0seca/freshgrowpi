@@ -358,7 +358,7 @@ def guardando_datos():
 
 
 def reinicia_servicios():
-    os.system('sudo systemctl restart ext_control.service  fotoperiodo.service  log.service  vent_control.service')
+    os.system('sudo systemctl restart ext_control.service  fotoperiodo.service  clima_log.service  vent_control.service')
 
 def guarda_configuracion():
     clr()

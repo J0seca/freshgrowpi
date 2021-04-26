@@ -1,8 +1,10 @@
 {% extends "index.html" %}
 {% block content %}
-
 <p class="title">{{fecha}}</p>
 
 {{datos_log|safe}}
 
+<div style="display: flex;justify-content: center;align-items:center;">
+<a href="/lista_log" class="button">Consultar log anterior.</a>
+</div>
 {% endblock %}
