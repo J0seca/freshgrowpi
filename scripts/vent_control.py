@@ -16,8 +16,8 @@ GPIO.setup(24, GPIO.OUT)
 #variables de sensor
 sensor = Adafruit_DHT.DHT11
 pin = 4
-temp_max = int(vent_temp_max)
-hum_max = int(vent_hum_max)
+temp_max = vent_temp_max
+hum_max = vent_hum_max
 
 #funciones de encendido/apagado 1/0
 def prende_ventilador():
@@ -33,21 +33,34 @@ def main():
         hum, temp = Adafruit_DHT.read_retry(sensor, pin)
         temp = str(temp)[0:2]
         hum = str(hum)[0:1]
-        print(temp, hum, temp_max, hum_max)
+        head = "Temp:", temp, "Hum:", hum, "Temp max:", temp_max, "Hum max:", hum_max
+        print(head)
+        estado_v = GPIO.input(24)
+        print("estado de ventilador:", estado_v)
 
-        if (int(temp) >= temp_max) or (int(hum) >= hum_max) and (int(GPIO.input(24)) == 0):
-            print("Temp/Hum muy alta. Prendiendo ventiladores.")
-            prende_ventilador()
-            time.sleep(36000) #ventiladores encendidos por 10 min.
-            print("Apagando ventiladores.")
-            apaga_ventilador()
-
-        else:
-            if GPIO.input(24) == 1:
-                print("Parámetros correctos. Apagando ventilador.")
+        try:
+            if int(temp) >= temp_max  and int(estado_v) == 0:
+                print("Temperatura muy alta. Prendiendo ventiladores.")
+                prende_ventilador()
+                time.sleep(600) #ventiladores encendidos por 10 min.
+                print("Apagando ventiladores.")
                 apaga_ventilador()
 
-        print("Descansando un minuto u.u")
-        time.sleep(60)
+            elif int(hum) >= hum_max and int(estado_v) == 0:
+                print("Humedad muy alta. Prendiendo ventiladores.")
+                prende_ventilador()
+                time.sleep(600) #ventiladores encendidos por 10 min.
+                print("Apagando ventiladores.")
+                apaga_ventilador()
 
+            else:
+                print("Parámetros correctos. Apagando ventilador.")
+
+        except:
+            print("Error de datos")
+
+
+        apaga_ventilador()
+        print("Descansando")
+        time.sleep(30)
 main()
