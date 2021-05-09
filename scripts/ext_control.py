@@ -58,7 +58,6 @@ def main():
 
         except:
             print("Error")
-            sleep(3)
 
         print("Descansando")
         time.sleep(30)
